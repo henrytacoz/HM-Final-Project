@@ -1,0 +1,464 @@
+import time
+import sys
+
+
+health = 100
+introduction = ("\nIn a world where magic courses through the very fabric of reality, you, a skilled wizard, \nfind yourself standing at the entrance of the mysterious Eldertome Dungeon. Legends speak \nof untold treasures and ancient knowledge hidden within its depths, but none who entered\nhave ever returned. With staff in hand and determination in your heart, you take your first step\ninto the abyss. What lies ahead is unknown, and your choices will shape the destiny of this world.")
+conclusion = ("\nYour journey through the Eldertome Dungeon has been a perilous one, filled with choices and consequences that have shaped your destiny as a wizard. \nThe weight of your decisions has been felt in your health, which now stands as a testament to your resilience and determination. With the crystalline sphere in your possession and \nthe knowledge youve acquired, you emerge from the dungeons depths, forever changed. The world outside awaits, \nand your newfound power and wisdom will undoubtedly impact the course of your magical journey. \nThe Eldertome Dungeon may remain a place of mystery and danger, but you have emerged from its shadows as a true \nmaster of magic.\n")
+
+
+
+def time_print(s: str, t=0.03): 
+    for char in s:
+        print(char, end="")
+        sys.stdout.flush()
+        delay(t)
+
+def delay(n):
+    time.sleep(n)
+    
+def intro():
+    time_print(introduction)
+    delay(15)
+
+
+def start():   
+    while True:
+        sta = input("Type Start to begin: ").lower()
+        if sta == "start":
+            delay(1)
+            time_print("This is a text based adventure game, so please write your answers exactly as prompted")
+            delay(1)
+            chapter1()
+            break
+
+        if sta not in "start":
+            time_print("Please Type Start in order to begin\n")  
+            delay(1)
+            time_print("if you would like to exit the game, type 'exit'\n")
+            return
+        
+        if sta == "exit":
+            quit()
+
+
+def chapter1():
+    while True:
+        chapter1.health = health
+        time_print("\n\nChapter 1: The Dark Descent\n\n")
+        delay(6)
+        time_print("As you descend deeper into the dungeon's gloom, a forked path stretches before you. One path leads into an ominous, shadowy corridor, \nwhile the other is illuminated faintly by an ethereal glow. Each choice has its risks and rewards.\n")
+        delay(10)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Enter the shadowy corridor.\n\nFollow the illuminated path.\n\n")
+        delay(2)   
+        choice = input("What will you do?:\n").lower()
+        
+        if choice.startswith("enter"):
+            time_print("\nYour curiosity guides you into the darkness, but it proves treacherous. You stumble upon a concealed pitfall, \nlosing your balance and falling deeper into the dungeon.\n")
+            delay(5)
+            time_print("\nYou lose 5 Health Points!\n")
+            chapter1.health -= 5        
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter1.health) + " Health Points!\n")
+            chapter2()
+            break
+
+        elif choice.startswith("follow"):
+            time_print("\nYour cautious approach pays off as you find a hidden chamber with a minor health potion.\n leaving you feeling more prepared for the challenges ahead.\n")        
+            time_print("\nYou Gain 10 Health Points!\n")
+            chapter1.health += 10
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter1.health) + " Health Points!\n")
+            chapter2()
+            break
+
+        elif choice not in ("enter the shadowy corridor", "follow the illuminated path"):
+            time_print("\nPlease Enter Your Answer Excatly as Provided\n")
+            delay(1)
+            return
+
+
+def chapter2():
+    while True:
+        chapter2.health = chapter1.health
+        time_print("\nChapter 2: The Enchanted Riddle.\n")
+        delay(6)
+        time_print("\nFurther into the dungeon, you encounter a massive stone door covered in mysterious runes. A disembodied voice echoes in\nyour mind, challenging you with a riddle. Success might grant you passage; failure could have dire consequences.\n")
+        delay(10)
+        time_print("\nYour choices include:\n")
+        delay(1)
+        time_print("\nAttempt to solve the riddle\n\nIgnore the riddle\n")
+        delay(2)   
+        choice2 = input("\nWhat will you do?:\n").lower()
+        
+        if choice2.startswith("attempt"):
+            answer = input("\n'I follow you all the time and copy your every move, but you can't touch me or catch me.' \nTake your time for you only get one try.  \n\nWhat am I?:\n").lower()
+            
+            if "shadow" in answer:
+                time_print("\n'You are very wise.  I hope it serves you well further into this dungeon.  Fair travels.'\n")
+                chapter3()
+                break
+
+            elif "shadow" not in answer:
+                time_print("\n'You fool!  none as dim as you are worthy of what lies ahead!'  Exclaimed the voice.  \nSuddenly the voice is no longer coming from the around. It has focused right in front of you.  You hear a thin 'whoosh' and as quick as a strike as lightnig you feel cold steel. \nYour spilled blood has coated the ghostly figures Rapier allowing you to see and finally understand what's happened.\n")
+                time_print("\nYou lose 25 Health Points!\n")
+                chapter2.health -= 25        
+                delay(1)
+                time_print("\nYou Now Have " + str(chapter2.health) + " Health Points!\n")
+                chapter3()
+                break
+
+        elif choice2.startswith("ignore"):
+            time_print("\nYour impatience leads to a disastrous outcome. \nAs you attempt to force the door open, it triggers a magical trap that \nengulfs you in flames.\n")
+            time_print("\nYou lose 15 Health Points!\n")
+            chapter2.health -= 15
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter2.health) + " Health Points!\n")
+            chapter3()
+            break 
+
+        elif choice2 not in ("attempt to solve the riddle", "ignore the riddle"):
+                time_print("Please Enter Your Answer Excatly as Provided")
+                return 
+        
+
+def chapter3():
+    while True:
+        chapter3.health = chapter2.health  
+        time_print("\n\nChapter 3: the lost apparition \n\n")
+        delay(3)
+        time_print("In a dimly lit chamber, you encounter a forlorn apparition trapped in a spectral cage. It reaches out to you with a silent plea for release.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Free the apparition\n\nLeave the apparition\n\n")
+        delay(2)   
+        choice3 = input("What will you do?:\n").lower()
+
+            
+        if choice3.startswith("free"):
+            time_print("\nYour compassion guides you, and your magical prowess allows you to release the trapped soul without harm. The grateful apparition shares vital information about the dungeon's dangers and grants you a protective enchantment\n")
+            delay(10)
+            time_print("You gain 10 Health Points!\n")
+            chapter3.health += 10       
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter3.health) + " Health Points!")
+            chapter4()
+            break
+
+        elif choice3.startswith("leave"):
+            time_print("Your cautious nature prevents you from intervening, and you continue on your way. However, the lingering guilt and unease weigh heavily on your heart\n")        
+            delay(1)
+            time_print("\nYou lose 15 Health Points!\n")
+            chapter3.health -= 15   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter3.health) + " Health Points!")
+            chapter4()
+            break
+
+        elif choice3 not in ("free the apparition", "leave the apparition"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+    
+
+def chapter4():
+    while True:
+        chapter4.health = chapter3.health 
+        time_print("\n\nChapter 4: The Cursed Fountain \n\n")
+        delay(3)
+        time_print("In a chamber adorned with an ornate, yet eerie, fountain, a voice in your head beckons. The fountain's water glows with an unnatural, pulsating light. It offers you a choice: drink from it and gain power, or resist the temptation.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Drink from the cursed fountain\n\nResist the temptation\n\n")
+        delay(2)   
+        choice4 = input("What will you do?:\n").lower()
+        
+        if choice4.startswith("drink"):
+            time_print("Your thirst for power leads you to imbibe the glowing water. Your magical abilities surge, but it comes at a cost. You feel a portion of your vitality draining away, permanently reducing your maximum Health Points by 10. You also find a spell scroll in the fountain's basin, which you put in your nupsack\n")
+            delay(10)
+            time_print("\nYou Lose 10 Health Points!\n")
+            chapter4.health -= 10       
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter4.health) + " Health Points!")
+            chapter5()
+            break
+
+        elif choice4.startswith("resist"):
+            time_print("You steel yourself against the allure of the fountain, recognizing the danger it presents. You continue on your path, avoiding any immediate harm. However, a sense of unease follows you.\n")        
+            delay(1)
+            time_print("You lose 5 Health Points!\n")
+            chapter4.health -= 5   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter4.health) + " Health Points!")
+            chapter5()
+            break
+
+        elif choice4 not in ("drink from the cursed fountain", "resist the temptation"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+
+
+def chapter5():
+    while True:
+        chapter5.health = chapter4.health
+        time_print("\n\nChapter 5: The Whispering Shadows\n\n")
+        delay(3)
+        time_print("As you venture deeper, shadows seem to take on a life of their own. They whisper cryptic messages and beckon you to follow. It's clear they hold secrets, but engaging with them might have unforeseen consequences.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Investigate the shadowy figures\n\nIgnore the shadows\n\n")
+        delay(2)   
+        choice5 = input("What will you do?:\n").lower()
+        
+        if choice5.startswith("investigate"):
+            time_print("Your curiosity guides you toward the shadows, and your magical abilities allow you to interact with them safely.\nThey reveal cryptic hints about upcoming challenges and lead you to a hidden alcove where you find a minor health potion.\n")
+            delay(10)
+            time_print("\nYou gain 5 Health Points!\n")
+            chapter5.health += 5       
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter5.health) + " Health Points!")
+            chapter6()
+            break
+
+        elif choice5.startswith("ignore"):
+            time_print("You resist the allure of the shadows, pushing forward. However, their whispering continues to haunt your thoughts, causing a feeling of growing unease.\n")        
+            delay(1)
+            time_print("You lose 10 Health Points!\n")
+            chapter5.health -= 10   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter5.health) + " Health Points!")
+            chapter6()
+            break
+
+        elif choice5 not in ("investigate the shadowy figures", "ignore the shadows"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+ 
+
+def chapter6():
+    while True:
+        chapter6.health = chapter5.health 
+        time_print("\n\nChapter 6: The Enigmatic Runes\n\n")
+        delay(3)
+        time_print("In a chamber adorned with intricate runes, a magical barrier blocks your path. The runes seem to be the key, but deciphering them requires great care.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Carefully study the runes\n\nAttempt to dispel the barrier\n\n")
+        delay(2)   
+        choice6 = input("What will you do?:\n").lower()
+
+        if choice6.startswith("carefully"):
+            time_print("You start to study the runes, and your magical abilities allow you to interact with them safely.\nThey reveal cryptic messages")
+            delay(1)
+            time_print("The runes begin to float all around you,  but in an instant they all merge right in front of you.\n forming a constellation of stars in the shape of a lion.\n")
+            answer = input("What Constellation is it?: \n").lower()
+            if answer == "leo":
+                time_print("\n'You are very wise.  I hope it serves you well further into this dungeon.  Fair travels. \n\n")
+                chapter7()
+                break
+
+            elif answer != "leo":
+                time_print("You Exclaim " + chapter6.answer + " The runes begin to spin all around you, in the blink of an eye the runes form long spikes.  As fast as they appeared they are plunged into your chest!\n'Wrong' says a voice far in the distance")
+                delay(1)
+                time_print("You lose 20 Health Points!\n")
+                chapter6.health -= 20
+                delay(1)
+                time_print("\nYou Now Have " + str(chapter6.health) + " Health Points!")
+                chapter7()
+                break
+
+        elif choice6.startswith("attempt"):
+            time_print("Impatience guides your actions as you try to force your way through with raw magical power. The barrier resists and retaliates, dealing a severe backlash of damage.\n")        
+            delay(1)
+            time_print("You lose 20 Health Points!\n")
+            chapter6.health -= 20
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter6.health) + " Health Points!")
+            chapter7()
+            break
+
+        elif choice6 not in ("Carefully study the runes", "attempt to dispel the barrier"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+    
+
+def chapter7():
+    while True:
+        chapter7.health = chapter6.health
+        time_print("\n\nChapter 7: The Silent Echoes\n\n")
+        delay(3)
+        time_print("Deeper within the dungeon, you stumble upon a chamber filled with an otherworldly silence. A single, unadorned door stands at the far end. The silence seems unnatural, yet the door beckons.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Enter the chamber and investigate the silence\n\nBypass the chamber entirely\n\n")
+        delay(2)   
+        choice7 = input("What will you do?:\n").lower()
+
+        if choice7.startswith("enter"):
+            time_print("Your curiosity leads you into the eerie silence, but it proves disorienting. The silence disorients you, making it difficult to cast spells.\nwhile draining 5 Health Points due to the mental strain but eventually uncover a spell scroll. This scroll teaches you Resonance Vision, which allows you to see hidden paths and secrets in the dungeon.\n")
+            delay(10)
+            time_print("You lose 5 Health Points!\n")
+            chapter7.health -= 5
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter7.health) + " Health Points!")
+            chapter8()
+            break
+
+        elif choice7.startswith("bypass"):
+            time_print("Your caution prevails as you decide not to risk the strange silence. You continue down the corridor, avoiding immediate harm, but a sense of missed opportunity nags at you, leaving you with lingering doubts.\n")        
+            delay(1)
+            time_print("You lose 5 Health Points!\n")
+            chapter7.health -= 5   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter7.health) + " Health Points!")
+            chapter8()
+            break
+
+        elif choice7 not in ("enter the chamber and investigate the silence", "bypass the chamber entirely"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+
+
+def chapter8():
+    while True:
+        chapter8.health = chapter7.health
+        time_print("\n\nChapter 8: The Shadowed Nexus\n\n")
+        delay(3)
+        time_print("With each step deeper into the Eldertome Dungeon, the atmosphere grows heavier. You find yourself in a chamber unlike any other you've encountered. The ceiling stretches into obscurity,\nand the walls are adorned with mysterious symbols that seem to pulse with ancient power.\nIn the center of the room, a colossal portal shrouded in shadow beckons, whispering promises of untold secrets and power beyond imagination.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Step into the shadowed portal\n\nProceed with caution\n\n")
+        delay(2)   
+        choice8 = input("What will you do?:\n").lower()
+
+        if choice8.startswith("step"):
+            time_print("Your curiosity gets the best of you as you step through the portal's dark embrace. The world around you dissolves into an ethereal realm, where you face a formidable spectral guardian.\nYou engage in a fierce magical battle, and with great effort, you defeat the guardian.\nAs a reward, you acquire a major health potion and a powerful spell called Abyssal Nova, which can unleash devastating magic. You put them in your inventory.\n")
+            delay(10)
+            time_print("You Lose 5 Health Points!\n")
+            chapter8.health -= 5       
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter8.health) + " Health Points!")
+            chapter9()
+            break
+
+        elif choice8.startswith("proceed"):
+            time_print("You decide to cautiously examine the symbols and magical energies. You realize that the portal's mysteries are beyond your current comprehension,\nand stepping through might have grave consequences. You choose to continue exploring the dungeon, avoiding the potential danger, but a lingering sense of curiosity remains\n")        
+            delay(1)
+            time_print("\nYou lose 5 Health Points!\n")
+            chapter8.health -= 5   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter8.health) + " Health Points!")
+            chapter9()
+            break
+
+        elif choice8 not in ("step into shadowed portal", "proceed with caution"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+
+
+def chapter9():
+    while True:
+        chapter9.health = chapter8.health
+        time_print("\n\nChapter 9: The Heart of Darkness\n\n")
+        delay(3)
+        time_print("As you venture deeper into the dungeon's abyssal depths, you arrive at a chamber bathed in an eerie, pulsating darkness. In the center lies an ancient altar, upon which rests a cryptic tome,\nbound in shadowy leather. The tome appears to be the source of the oppressive darkness that pervades the chamber.\nYou sense immense power emanating from it, but the risks are equally immense.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Approach the dark altar\n\nTurn away from the ominous tome\n\n")
+        delay(2)   
+        choice9 = input("What will you do?:\n").lower()
+
+        if choice9.startswith("approach"):
+            time_print("Your thirst for knowledge and power drives you to reach for the tome. As your fingers graze its surface, the shadows surge, enveloping you in darkness. The tome's secrets flood your mind,\nunlocking a forbidden spell, Voidbind, capable of sealing away powerful adversaries. However, your connection to the shadows costs you.\n")
+            delay(10)
+            time_print("You lose 15 Health points\n")
+            chapter9.health -= 15       
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter9.health) + " Health Points!")
+            chapter10()
+            break
+
+        elif choice9.startswith("turn"):
+            time_print("Cautious discretion guides your choice, and you resist the allure of the shadowy tome. You continue your journey through the dungeon without immediate danger.\nYet, a lingering sense of what might have been nags at you, causing you to lose 5 Health Points due to regret.\n")        
+            delay(1)
+            time_print("\nYou lose 5 Health Points!\n")
+            chapter9.health -= 5   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter9.health) + " Health Points!")
+            chapter10()
+            break
+
+        elif choice9 not in ("approach the dark altar", "turn away from the ominous tome"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+    
+
+def chapter10():
+    while True:
+        chapter10.health = chapter9.health
+        time_print("\n\nChapter 10: The Final Challenge\n\n")
+        delay(3)
+        time_print("Deep within the Eldertome Dungeon, you arrive at a massive chamber bathed in an otherworldly radiance. In the center stands an imposing statue of a mythical guardian,\nits eyes aglow with a pulsating energy. The guardian's outstretched hand holds a crystalline sphere, radiating pure magical power. It is the heart of the dungeon,\nthe ultimate challenge and the key to unlocking its deepest secrets.\n")
+        delay(6)
+        time_print("\nYour choices include:\n\n")
+        delay(1)
+        time_print("Approach the guardian\n\nProceed with caution\n\n")
+        delay(2)   
+        choice10 = input("What will you do?:\n").lower()
+
+        if choice10.startswith("approach"):
+            time_print("Your determination fuels your steps as you move closer to the guardian. As you reach for the crystalline sphere, the guardian awakens, manifesting as a formidable adversary.\nA fierce battle ensues, and with sheer magical prowess, you emerge victorious. The crystalline sphere is yours, a source of unparalleled magical power, and you add it to your inventory.\n")
+            delay(10)
+            concl()
+            break
+        elif choice10.startswith("proceed"):
+            time_print("Your wisdom prevails as you carefully assess the guardian's nature and the sphere's magic. You realize that this challenge may surpass your current capabilities.\nChoosing to continue your journey without confrontation, you avoid immediate harm. Yet, a sense of unfinished business lingers,\ncosting you 10 Health Points due to the regret of not embracing the ultimate test.\n")        
+            delay(1)
+            time_print("\nYou lose 25 Health Points!\n")
+            chapter10.health -= 25   
+            delay(1)
+            time_print("\nYou Now Have " + str(chapter10.health) + " Health Points!")
+            concl()
+            break
+        elif choice10 not in ("approach the dark altar", "turn away from the ominous tome"):
+            time_print("Please Enter Your Answer Excatly as Provided")
+            return
+
+
+def concl():
+    time_print(conclusion)
+    delay(1)
+    time_print("Congratulations! You have completed the Eldertome Dungeon!") 
+    delay(1)
+    time_print("You Survived With " + str(chapter10.health) + " Health Points!\n")
+    delay(1)
+    time_print("Thank you for playing 'The Eldertome Dungeon!' By Henry Mark") 
+    quit()
+
+start()
+intro()
+chapter1()
+chapter2()
+chapter3()
+chapter4()
+chapter5()
+chapter6()
+chapter7()
+chapter8()
+chapter9()
+chapter10()
+concl()
+
+healthlist = (health, chapter1.health, chapter2.health, chapter3.health, chapter4.health, chapter5.health, chapter7.health, chapter8.health, chapter9.health, chapter10.health)
+if any(x<=0 for x in healthlist):
+    time_print("You have died! Relaunch to try again.")
+    delay(5)
+    quit()
